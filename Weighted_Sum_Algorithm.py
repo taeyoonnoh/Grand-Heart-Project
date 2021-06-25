@@ -26,6 +26,9 @@ try:
     user1+=1
     else 0
 
+
+weighted sum 활용한 def 함수 만들기! 가능하면 class 까지 구현
+
 # recommended_food = {
 #     'User1':{'국':11, '구이':2, '떡': 5, '밥':5},
 #     'User2':{'국':7, '구이':8, '밥':2}
