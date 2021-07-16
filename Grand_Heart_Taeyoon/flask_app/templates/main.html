@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Food</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"> -->
+        <style>
+        body {
+            margin: 0px;
+            padding: 0.1px;
+            padding-right: 423px;
+            font-family: "Roboto", sans-serif;
+            background:white;
+        }
+    
+        .main1 {
+            position:static;
+            margin-left:300px;
+            margin-top:-700px;
+            background: rgb(203, 208, 253);
+            height:200px;
+            width:400px;
+            text-align: center;
+            border-radius: 7%;
+            z-index: -1;
+            border-style: solid;
+        }
+    
+        .search-box {
+            width:100%;
+            display:flex;
+            left:65px;
+            position:relative;
+            z-index:1;
+        }
+    
+        .search-btn {
+            height:41px;
+            border:1px solid #080ba3;  
+            background:#080ba3;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor:pointer;
+            font-size:20px;
+            position:relative;
+            right:5px;
+            top:2.5px;
+            height:41px;
+        }
+
+        .fixed_header {
+            width: 130%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .fixed_header tbody {
+            display: block;
+            width: 100%;
+            overflow: auto;
+            height: 300px;
+            font-size:small;
+        }
+
+        .fixed_header thead tr {
+            display: block;
+            text-align: center;
+        }
+
+        .fixed_header thead {
+            background: black;
+            color: #fff;
+            text-align: center;
+        }
+
+        .fixed_header th,
+        .fixed_header td {
+            padding: 5px;
+            text-align: left;
+            width: 200px;
+        }
+        </style>
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="search-box">
+                <img src="{{ url_for('static', filename='image/KFoods/Foods/구이_갈비구이1_0002.jpg') }}">
+                <form action="" method="POST">
+                    <input type="text" class="search" placeholder="저장하기" name="click">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search" style="user-select: auto;"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <table class="fixed_header">
+            <thead>
+                <tr>
+                    <th>&ensp;&ensp;&ensp;&ensp;카테고리</th>
+                    <th>&ensp;&ensp;&ensp;&ensp;음식명</th>
+                    <th>&ensp;&ensp;&ensp;Time Saved</th>
+                    <th>Current Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if first %}
+                    <tr>
+                        <th>{{ first.food_category }}</th>
+                        <th>{{ first.food_name }}</th>
+                        <th>{{ first.time_save }}</th>
+                        <th>{{ first.curr_time }}</th>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </body>
+</html>
+

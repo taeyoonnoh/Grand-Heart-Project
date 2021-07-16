@@ -1,0 +1,42 @@
+body {
+    margin: 0px;
+    padding: 0.1px;
+    padding-right: 423px;
+    font-family: "Roboto", sans-serif;
+    background:white;
+}
+
+.main1 {
+    position:static;
+    margin-left:300px;
+    margin-top:-700px;
+    background: rgb(203, 208, 253);
+    height:200px;
+    width:400px;
+    text-align: center;
+    border-radius: 7%;
+    z-index: -1;
+    border-style: solid;
+}
+
+.search-box {
+    width:100%;
+    display:flex;
+    left:65px;
+    position:relative;
+    z-index:1;
+}
+
+.search-btn {
+    height:41px;
+    border:1px solid #080ba3;  
+    background:#080ba3;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor:pointer;
+    font-size:20px;
+    position:relative;
+    right:5px;
+    top:2.5px;
+    height:41px;
+}
