@@ -1,7 +1,7 @@
 from flask_app import db
 
-class Image(db.Model):
-    __tablename__ = 'image'
+class Bad(db.Model):
+    __tablename__ = 'bad'
 
     id = db.Column(db.Integer(), primary_key = True, nullable = False)
     food_name = db.Column(db.Text())
@@ -11,4 +11,4 @@ class Image(db.Model):
     curr_time = db.Column(db.DateTime())
 
     def __repr__(self):
-        return f"Image {self.id}"
+        return f"Bad {self.id}"
