@@ -95,3 +95,4 @@ werkzeug.routing.BuildError: Could not build url for endpoint 'main.image_index'
 2021-07-27 22:35:28,470 INFO: Microblog startup [in C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\__init__.py:48]
 2021-07-27 22:38:03,265 INFO: Microblog startup [in C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\__init__.py:48]
 2021-07-27 22:40:05,183 INFO: Microblog startup [in C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\__init__.py:48]
+2021-07-27 22:43:29,535 INFO: Microblog startup [in C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\__init__.py:48]

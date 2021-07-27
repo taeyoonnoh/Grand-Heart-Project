@@ -205,6 +205,7 @@ def image_index():
     return render_template("upload.html")
 
 @app.route('/upload')
+@login_required
 def image_upload():
 
     # 데이터베이스에서 이미지 정보 가져오고 리스트에 저장
@@ -258,6 +259,7 @@ def delete_image(image_id=None):
         return redirect(url_for('image_upload'))
 
 @app.route('/random_show', methods=['GET', 'POST'])
+@login_required
 def random_show():
 
     # 데이터베이스에서 이미지 정보 가져오고 리스트에 저장
