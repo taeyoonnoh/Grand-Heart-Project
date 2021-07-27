@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Upload</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"> -->
+        <style>
+        body {
+            margin: 0px;
+            padding: 0.1px;
+            padding-right: 423px;
+            font-family: "Roboto", sans-serif;
+            background:white;
+        }
+    
+        .main1 {
+            position:static;
+            margin-left:300px;
+            margin-top:-700px;
+            background: rgb(203, 208, 253);
+            height:200px;
+            width:400px;
+            text-align: center;
+            border-radius: 7%;
+            z-index: -1;
+            border-style: solid;
+        }
+    
+        .search-box {
+            width:100%;
+            display:flex;
+            left:65px;
+            position:relative;
+            z-index:1;
+        }
+    
+        .search-btn {
+            height:41px;
+            border:1px solid #080ba3;  
+            background:#080ba3;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor:pointer;
+            font-size:20px;
+            position:relative;
+            right:5px;
+            top:2.5px;
+            height:41px;
+        }
+
+        .fixed_header {
+            width: 130%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .fixed_header tbody {
+            display: block;
+            width: 100%;
+            overflow: auto;
+            /* height: 300px; */
+            font-size:small;
+        }
+
+        .fixed_header thead tr {
+            display: block;
+            text-align: center;
+        }
+
+        .fixed_header thead {
+            background: black;
+            color: #fff;
+            text-align: center;
+        }
+
+        .fixed_header th,
+        .fixed_header td {
+            padding: 5px;
+            text-align: center;
+            width: 200px;
+        }
+
+        .fixed_header tbody th {
+            font-size:large;
+        }
+        </style>
+    </head>
+
+    <body>
+        <a href="/"><i class="fas fa-desktop"> &nbsp;&nbsp; </i><span>Food</span></a>
+        <a href="/upload"><i class="far fa-newspaper"></i> &nbsp;&nbsp; <span>Upload</span></a>
+
+        <form method="POST" action="/upload/" enctype="multipart/form-data">
+            <input type='file' name="imgdata" accept="image/*" style="margin-bottom:10px" class="form-control" type="text" placeholder="Enter user" multiple>
+            <input type="submit" class="btn btn-primary" value="Add" />
+        </form>
+
+        <h3>Foods</h1>
+        <table class="fixed_header">
+            <thead>
+                <tr>
+                    <th>Index </th>
+                    <th>음식 이미지</th>
+                    <th>카테고리</th>
+                    <th>음식명</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data %}
+                    {% for i in data %}
+                    <tr>
+                        <th> {{i.id}} </th>
+                        <th> <img src='data:;base64, {{ i.render_file }}' width='200', height='200'> </th>
+                        <th>{{ i.food_category }}</th>
+                        <th>{{ i.food_name }}</th>
+                        <th> <a class="btn btn-secondary", href='/upload/delete/{{i.id}}'> Delete </th>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </body>
+</html>

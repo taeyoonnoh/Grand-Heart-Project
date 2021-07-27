@@ -60,7 +60,6 @@
             display: block;
             width: 100%;
             overflow: auto;
-            height: 300px;
             font-size:small;
         }
 
@@ -85,24 +84,24 @@
     </head>
 
     <body>
+        <a href="/"><i class="fas fa-desktop"> &nbsp;&nbsp; </i><span>Food</span></a>
+        <a href="/upload"><i class="far fa-newspaper"></i> &nbsp;&nbsp; <span>Upload</span></a>
+
         <div class="main">
             <div class="search-box">
-                <img src="{{ image_file }}" width=200 height=200>
-                <form action="/good" method="POST" name={{selected_name}}>
-                    <input type="text" class="search" name='selected_name' value={{selected_name}} style='background-color:transparent; color:white; border:none'>
+                <img src='data:;base64, {{ random_food.render_file }}' width='200', height='200'>
+                <form action="/prefer/{{ random_food.image_name }}" method="POST">
                     <button type="text" class="search-btn">
                         <i class="far fa-thumbs-up" style="user-select: auto;"></i>
                     </button>
                 </form>
-                <form action="/bad" method="POST">
-                    <input type="text" class="search" name='selected_name' value={{selected_name}} style='background-color:transparent; color:white; border:none'>
-                    <button type="submit" class="search-btn">
+                <form action="/not_prefer/{{ random_food.image_name }}" method="POST" >                    <button type="submit" class="search-btn">
                         <i class="far fa-thumbs-down" style="user-select: auto;"></i>
                     </button>
                 </form>
             </div>
         </div>
-        <h3>선호 데이터</h1>
+        <h3>선호/비선호 데이터</h1>
         <table class="fixed_header">
             <thead>
                 <tr>
@@ -110,39 +109,18 @@
                     <th>&ensp;&ensp;&ensp;&ensp;음식명</th>
                     <th>&ensp;&ensp;&ensp;Time Saved</th>
                     <th>Current Time</th>
+                    <th> Prefer/No Prefer </th>
                 </tr>
             </thead>
             <tbody>
-                {% if good_data %}
-                    {% for i in good_data %}
+                {% if prefer_data %}
+                    {% for i in prefer_data %}
                     <tr>
                         <th>{{ i.food_category }}</th>
                         <th>{{ i.food_name }}</th>
                         <th>{{ i.time_save }}</th>
                         <th>{{ i.curr_time }}</th>
-                    </tr>
-                    {% endfor %}
-                {% endif %}
-            </tbody>
-        </table>
-        <h3>비선호 데이터</h1>
-        <table class="fixed_header">
-            <thead>
-                <tr>
-                    <th>&ensp;&ensp;&ensp;&ensp;카테고리</th>
-                    <th>&ensp;&ensp;&ensp;&ensp;음식명</th>
-                    <th>&ensp;&ensp;&ensp;Time Saved</th>
-                    <th>Current Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if bad_data %}
-                    {% for i in bad_data %}
-                    <tr>
-                        <th>{{ i.food_category }}</th>
-                        <th>{{ i.food_name }}</th>
-                        <th>{{ i.time_save }}</th>
-                        <th>{{ i.curr_time }}</th>
+                        <th>{{ i.preference }}</th>
                     </tr>
                     {% endfor %}
                 {% endif %}
