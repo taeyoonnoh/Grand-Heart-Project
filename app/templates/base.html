@@ -9,6 +9,8 @@
         뭐 먹으러 갈까?:
         <button type="button" class="btn btn-default navbar-btn"><a href="{{ url_for('index') }}">Home</a></button>
         <button type="button" class="btn btn-default navbar-btn"><a href="{{ url_for('explore') }}">Explore</a></button> 
+        <button type="button" class="btn btn-default navbar-btn"><a href="/upload">음식업로드</a></button> 
+        <button type="button" class="btn btn-default navbar-btn"><a href="/random_show">랜덤음식선택하기</a></button> 
         
         
         {% if current_user.is_anonymous %}

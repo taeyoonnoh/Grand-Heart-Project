@@ -1,0 +1,116 @@
+2021-07-27 21:58:04,361 ERROR: Exception on /login [POST] [in c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\ext\declarative\clsregistry.py", line 311, in _resolve_name
+    rval = d[token]
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\util\_collections.py", line 729, in __missing__
+    self[key] = val = self.creator(key)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\ext\declarative\clsregistry.py", line 290, in _access_cls
+    return self.fallback[key]
+KeyError: 'Comment'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\routes.py", line 147, in login
+    user = User.query.filter_by(username=form.username.data).first()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask_sqlalchemy\__init__.py", line 512, in __get__
+    mapper = orm.class_mapper(type)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\base.py", line 451, in class_mapper
+    mapper = _inspect_mapped_class(class_, configure=configure)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\base.py", line 430, in _inspect_mapped_class
+    mapper._configure_all()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\mapper.py", line 1352, in _configure_all
+    configure_mappers()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\mapper.py", line 3299, in configure_mappers
+    mapper._post_configure_properties()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\mapper.py", line 1965, in _post_configure_properties
+    prop.init()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\interfaces.py", line 197, in init
+    self.do_init()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\relationships.py", line 2076, in do_init
+    self._process_dependent_arguments()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\relationships.py", line 2138, in _process_dependent_arguments
+    self.target = self.entity.persist_selectable
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 884, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\relationships.py", line 2043, in entity
+    argument = self.argument()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\ext\declarative\clsregistry.py", line 315, in _resolve_name
+    self._raise_for_name(name, err)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\ext\declarative\clsregistry.py", line 293, in _raise_for_name
+    util.raise_(
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: When initializing mapper mapped class Image->image, expression 'Comment' failed to locate a name ('Comment'). If this is a class name, consider adding this relationship() to the <class 'app.models.Image'> class after both dependent classes have been defined.
+2021-07-27 21:58:28,020 INFO: Microblog startup [in C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\__init__.py:48]
+2021-07-27 21:58:36,156 ERROR: Exception on /login [POST] [in c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py:1891]
+Traceback (most recent call last):
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\ext\declarative\clsregistry.py", line 311, in _resolve_name
+    rval = d[token]
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\util\_collections.py", line 729, in __missing__
+    self[key] = val = self.creator(key)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\ext\declarative\clsregistry.py", line 290, in _access_cls
+    return self.fallback[key]
+KeyError: 'Comment'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\routes.py", line 147, in login
+    user = User.query.filter_by(username=form.username.data).first()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\flask_sqlalchemy\__init__.py", line 512, in __get__
+    mapper = orm.class_mapper(type)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\base.py", line 451, in class_mapper
+    mapper = _inspect_mapped_class(class_, configure=configure)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\base.py", line 430, in _inspect_mapped_class
+    mapper._configure_all()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\mapper.py", line 1352, in _configure_all
+    configure_mappers()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\mapper.py", line 3299, in configure_mappers
+    mapper._post_configure_properties()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\mapper.py", line 1965, in _post_configure_properties
+    prop.init()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\interfaces.py", line 197, in init
+    self.do_init()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\relationships.py", line 2076, in do_init
+    self._process_dependent_arguments()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\relationships.py", line 2138, in _process_dependent_arguments
+    self.target = self.entity.persist_selectable
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 884, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\orm\relationships.py", line 2043, in entity
+    argument = self.argument()
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\ext\declarative\clsregistry.py", line 315, in _resolve_name
+    self._raise_for_name(name, err)
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\ext\declarative\clsregistry.py", line 293, in _raise_for_name
+    util.raise_(
+  File "c:\users\gihyeon\appdata\local\programs\python\python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+sqlalchemy.exc.InvalidRequestError: When initializing mapper mapped class Image->image, expression 'Comment' failed to locate a name ('Comment'). If this is a class name, consider adding this relationship() to the <class 'app.models.Image'> class after both dependent classes have been defined.
+2021-07-27 21:59:21,184 INFO: Microblog startup [in C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\__init__.py:48]
+2021-07-27 22:00:40,369 INFO: Microblog startup [in C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\__init__.py:48]
+2021-07-27 22:03:45,370 INFO: Microblog startup [in C:\Users\GIHYEON\anaconda3\envs\GH_project\Grand-Heart-Project\app\__init__.py:48]

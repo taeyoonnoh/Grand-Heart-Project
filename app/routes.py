@@ -1,11 +1,12 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, EmptyForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
-from app.models import User, Post
+from app.models import User, Post, Image
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
 from app.email import send_password_reset_email
+import random
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -190,6 +191,93 @@ def explore():
        if posts.has_prev else None
    return render_template("index.html", title='Explore', posts=posts.items,
                          next_url=next_url, prev_url=prev_url)
+
+
+from base64 import b64encode
+import base64
+
+def render_picture(data):
+    render_pic = base64.b64encode(data).decode('ascii') 
+    return render_pic
+
+@app.route('/image')
+def image_index():
+    return render_template("upload.html")
+
+@app.route('/upload')
+def image_upload():
+
+    # 데이터베이스에서 이미지 정보 가져오고 리스트에 저장
+    imagedata = Image.query.all()
+    image_list = []
+    for image in imagedata:
+        pic_date = str(image.pic_date)[0:10]
+        image_dict = {'id' : image.id,
+                      'imgname' : image.imgname,
+                      'rendered_data' : image.rendered_data,
+                      'pic_date' : pic_date}
+        image_list.append(image_dict)
+
+    return render_template('upload.html', image_list=image_list, data=list)
+
+@app.route('/upload/image', methods=['POST'])
+def add_image():
+    # POST일 경우 이미지 파일 데이터 가져오기
+    
+    get_files = request.files.getlist('imgdata')
+    for get_file in get_files:
+        data = get_file.read()
+        render_file = render_picture(data)
+        imgname = str(get_file).split("'")[1].split(".")[0]
+
+        # 이미지 데이터 db에 저장
+        newFile = Image(imgname=imgname, imgdata=data, rendered_data=render_file)
+        db.session.add(newFile)
+        db.session.commit()
+
+    return redirect(url_for('image_upload'))
+
+@app.route('/upload/')
+@app.route('/upload/<int:image_id>')
+def delete_image(image_id=None):
+    
+    # 삭제할 이미지 id로 선택
+    select_image = Image.query.filter(Image.id == image_id).first()
+
+    # 이미지 아이디 없으면 리턴X, 상태코드 400
+    if image_id is None:
+        return "", 400
+
+    elif select_image is None:
+        return "", 404
+
+    else:
+        # image 지우기
+        db.session.delete(select_image)
+        db.session.commit()
+        return redirect(url_for('image_upload'))
+
+@app.route('/random_show', methods=['GET', 'POST'])
+def random_show():
+
+    # 데이터베이스에서 이미지 정보 가져오고 리스트에 저장
+    imagedata = Image.query.all()
+    image_list = []
+    for image in imagedata:
+        pic_date = str(image.pic_date)[0:10]
+        image_dict = {'id' : image.id,
+                      'imgname' : image.imgname,
+                      'rendered_data' : image.rendered_data,
+                      'pic_date' : pic_date}
+        image_list.append(image_dict)
+
+    random_img_id = random.randint(1, len(image_list)) -1
+    random_img_list = []
+    random_img_list.append(image_list[random_img_id])
+
+
+    return render_template('random_show.html', image_list=random_img_list, data=list)
+
 
 
 if __name__ == '__main__':
