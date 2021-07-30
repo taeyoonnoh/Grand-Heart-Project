@@ -12,3 +12,6 @@ class Food(db.Model):
 
     def __repr__(self):
         return f"food {self.id}"
+
+    def as_dict(self) : 
+        return {'name' : self.id}

@@ -6,7 +6,7 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///jobs.sqlite3"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///jobs.db"
 
 
 class ProductionConfig(Config):

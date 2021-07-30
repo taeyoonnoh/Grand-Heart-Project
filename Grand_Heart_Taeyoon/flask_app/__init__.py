@@ -19,9 +19,10 @@ def create_app(config=None):
     db.init_app(app)
     migrate.init_app(app,db)
 
-    from flask_app.routes import (main_route,upload)
+    from flask_app.routes import (main_route,upload,filter)
     app.register_blueprint(main_route.bp)
     app.register_blueprint(upload.bp,url_prefix='/upload')
+    app.register_blueprint(filter.bp,url_prefix='/filter')
 
     return app
 

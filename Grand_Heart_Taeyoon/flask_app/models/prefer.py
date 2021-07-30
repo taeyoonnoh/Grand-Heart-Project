@@ -6,6 +6,7 @@ class Prefer(db.Model):
     id = db.Column(db.Integer(), primary_key = True, nullable = False)
     food_name = db.Column(db.Text())
     food_category = db.Column(db.Text())
+    image_name = db.Column(db.Text())
     time_save = db.Column(db.DateTime())
     curr_time = db.Column(db.DateTime())
     preference = db.Column(db.Integer())

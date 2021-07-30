@@ -11,9 +11,18 @@ bp = Blueprint('main', __name__)
 @bp.route('/', methods=['POST', 'GET'])
 def index():
 
+    # 이미지 있는지부터 확인
+    first_food = db.session.query(Food).first()
+    if not first_food : 
+        return render_template('please_upload.html')
+
     # 랜덤으로 하나 추출하는 코드
     rand = random.randrange(0, db.session.query(Food).count()) 
     random_food = db.session.query(Food)[rand]
+
+    check_name = db.session.query(Prefer).filter(Prefer.image_name==random_food.image_name).first()
+    if check_name : 
+        return redirect(url_for('main.index'))
 
     # 현재 시간
     curr_time = datetime.now()
@@ -54,6 +63,7 @@ def prefer(random_name):
     db.session.add(Prefer(
         food_name = food_name,
         food_category = food_category,
+        image_name = random_name,
         time_save = save_time,
         curr_time = curr_time,
         preference = 1
@@ -77,6 +87,7 @@ def not_prefer(random_name):
     db.session.add(Prefer(
         food_name = food_name,
         food_category = food_category,
+        image_name = random_name,
         time_save = save_time,
         curr_time = curr_time,
         preference = 0

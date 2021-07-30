@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Food</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!-- <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"> -->
+        <style>
+        body {
+            margin: 0px;
+            padding: 0.1px;
+            padding-right: 423px;
+            font-family: "Roboto", sans-serif;
+            background:white;
+        }
+    
+        .main1 {
+            position:static;
+            margin-left:300px;
+            margin-top:-700px;
+            background: rgb(203, 208, 253);
+            height:200px;
+            width:400px;
+            text-align: center;
+            border-radius: 7%;
+            z-index: -1;
+            border-style: solid;
+        }
+    
+        .search-box {
+            width:100%;
+            display:flex;
+            left:65px;
+            position:relative;
+            z-index:1;
+        }
+    
+        .search-btn {
+            height:41px;
+            border:1px solid #080ba3;  
+            background:#080ba3;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor:pointer;
+            font-size:20px;
+            position:relative;
+            right:5px;
+            top:2.5px;
+            height:41px;
+        }
+
+        .fixed_header {
+            width: 130%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .fixed_header tbody {
+            display: block;
+            width: 100%;
+            overflow: auto;
+            font-size:small;
+        }
+
+        .fixed_header thead tr {
+            display: block;
+            text-align: center;
+        }
+
+        .fixed_header thead {
+            background: black;
+            color: #fff;
+            text-align: center;
+        }
+
+        .fixed_header th,
+        .fixed_header td {
+            padding: 5px;
+            text-align: left;
+            width: 200px;
+        }
+        </style>
+    </head>
+
+    <body>
+        <a href="/filter"><i class="far fa-newspaper"></i> &nbsp;&nbsp; <span>Filter</span></a>
+        <a href="/"><i class="fas fa-desktop"> &nbsp;&nbsp; </i><span>Food</span></a>
+        <a href="/upload"><i class="far fa-newspaper"></i> &nbsp;&nbsp; <span>Upload</span></a>
+
+        <h3> 이미지 업로드 해주세요~ </h3>
+    </body>
+</html>
+
