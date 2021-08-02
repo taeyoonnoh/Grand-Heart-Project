@@ -1,6 +1,36 @@
 # Grand-Heart-Project 
 
-주요 기능 구현
+# Folder Layout
+```markdown
+app
+│ └── copy,html
+│ └── email.py
+│ └── errors.py
+│ └── forms.py
+│ └── models.py
+│ └── routes
+│           └── routes.py
+│ └── templates
+│           └── email
+│                 └── reset_password.html
+|                 └── reset_password.txt
+│           └── 404.html
+│           └── 500.html
+│           └── _post.html
+│           └── base.html
+│           └── edit_profile.html
+│           └── index.html
+│           └── login.html
+│           └── random_show.html
+│           └── register.html
+│           └── reset_password.html
+│           └── reset_password_request.html
+│           └── upload.html
+│           └── user.html
+│ └── init.py
+```
+
+# 주요 기능 구현
 - AutoEncoder 모델 
 - 음식 이미지 데이터 베이스 저장 (되도록이면 Label과 함께)
 - 웹 어플리케이션 다자인 (굉장히 어려울 것으로 예상)
