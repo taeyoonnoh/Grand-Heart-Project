@@ -7,6 +7,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
 from app.email import send_password_reset_email
 import random
+import re
+import json
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -273,14 +275,213 @@ def random_show():
                       'pic_date' : pic_date}
         image_list.append(image_dict)
 
-    random_img_id = random.randint(1, len(image_list)) -1
+    # 기현님 코드
+    # random_img_id = random.randint(1, len(image_list)) -1
+
+    # filtering 된것은 제외하고 나머지의 image id 중 랜덤으로 하나 출력
+    current_username = current_user.username
+    cat_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().filter_food_json)
+    cat_items_list = list(cat_dict.items())
+    filtered_list = [int(key) for key,value in cat_items_list if value==0]
+    random_img_id = random.choice(filtered_list)
     random_img_list = []
     random_img_list.append(image_list[random_img_id])
 
+    # 확인용
+    user = db.session.query(User).filter(User.username==current_username).first()
+    
+    cat_dict = json.loads(user.food_json)
+    pref_dict = json.loads(user.preference_json)
+    filter_dict = json.loads(user.filter_food_json)
 
-    return render_template('random_show.html', image_list=random_img_list, data=list)
+    return render_template('random_show.html', image_list=random_img_list, data=list,current_username=current_username,cat_dict=cat_dict,pref_dict=pref_dict,filter_dict=filter_dict)
 
+@app.route('/random_show/prefer/<random_name>', methods=['GET', 'POST'])
+@login_required
+def prefer(random_name):
 
+    # {카테고리}_{음식명}_{번호} 형식으로 되어있음
+    # 필요한 부분만 추출 
+    splitted =  random_name.split("_")
+    food_category = splitted[0]
+    food_name = splitted[1]
+
+    current_username = current_user.username
+    user_db = db.session.query(User).filter(User.username==current_username).first()
+
+    # 해당 카테고리 1씩 추가 및 json dump
+    cat_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().food_json)
+    cat_dict[food_category] +=1
+
+    cat_json = json.dumps(cat_dict,ensure_ascii=False)
+    user_db.food_json = cat_json
+
+    # 선호 비선호 json 업데이트
+    pref_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().preference_json)
+    pref_dict[food_category + '_' + food_name] = 3
+
+    pref_json = json.dumps(pref_dict,ensure_ascii=False)
+    user_db.preference_json = pref_json
+
+    # filtering 업데이트
+    filt_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().filter_food_json)
+    select_image = db.session.query(Image).filter((Image.imgname.contains(food_category + '_' + food_name))).first()
+    filt_dict[str(select_image.id)] = 1
+    
+    filt_json = json.dumps(filt_dict,ensure_ascii=False)
+    user_db.filter_food_json = filt_json
+
+    db.session.commit()
+
+    return redirect(url_for('random_show'))
+
+@app.route('/random_show/soso/<random_name>', methods=['GET', 'POST'])
+@login_required
+def soso(random_name):
+
+    # {카테고리}_{음식명}_{번호} 형식으로 되어있음
+    # 필요한 부분만 추출 
+    splitted =  random_name.split("_")
+    food_category = splitted[0]
+    food_name = splitted[1]
+
+    current_username = current_user.username
+    user_db = db.session.query(User).filter(User.username==current_username).first()
+
+    # 선호 비선호 json 업데이트
+    pref_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().preference_json)
+    pref_dict[food_category + '_' + food_name] = 2
+
+    pref_json = json.dumps(pref_dict,ensure_ascii=False)
+    user_db.preference_json = pref_json
+
+    # filtering 업데이트
+    filt_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().filter_food_json)
+    select_image = db.session.query(Image).filter((Image.imgname.contains(food_category + '_' + food_name))).first()
+    filt_dict[str(select_image.id)] = 1
+    
+    filt_json = json.dumps(filt_dict,ensure_ascii=False)
+    user_db.filter_food_json = filt_json
+
+    db.session.commit()
+
+    return redirect(url_for('random_show'))
+
+@app.route('/random_show/notprefer/<random_name>', methods=['GET', 'POST'])
+@login_required
+def notprefer(random_name):
+
+    # {카테고리}_{음식명}_{번호} 형식으로 되어있음
+    # 필요한 부분만 추출 
+    splitted =  random_name.split("_")
+    food_category = splitted[0]
+    food_name = splitted[1]
+
+    current_username = current_user.username
+    user_db = db.session.query(User).filter(User.username==current_username).first()
+
+    # 선호 비선호 json 업데이트
+    pref_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().preference_json)
+    pref_dict[food_category + '_' + food_name] = 1
+
+    pref_json = json.dumps(pref_dict,ensure_ascii=False)
+    user_db.preference_json = pref_json
+
+    # filtering 업데이트
+    filt_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().filter_food_json)
+    select_image = db.session.query(Image).filter((Image.imgname.contains(food_category + '_' + food_name))).first()
+    filt_dict[str(select_image.id)] = 1
+    
+    filt_json = json.dumps(filt_dict,ensure_ascii=False)
+    user_db.filter_food_json = filt_json
+
+    db.session.commit()
+
+    return redirect(url_for('random_show'))
+
+# 필터링 함수
+@app.route('/filter', methods=['POST', 'GET'])
+@login_required
+def filter():
+
+    # DB 에 저장된 모든 음식 이미지 데이터 찾기
+    # 필터링 과정에서 어떤 음식들이 있는지 보여주기 위한 용도
+    foods = db.session.query(Image).all()
+
+    current_username = current_user.username
+    check_if_food_json_exists = db.session.query(User.food_json).filter(User.username==current_username).first()
+    check_if_filter_food_json_exists = db.session.query(User.filter_food_json).filter(User.username==current_username).first()
+    check_if_preference_json_exists = db.session.query(User.preference_json).filter(User.username==current_username).first()
+    if not check_if_food_json_exists[0] or not check_if_filter_food_json_exists[0] or not check_if_preference_json_exists[0]: 
+        cat_dict,num_dict,pref_dict = {},{},{}
+        for i in foods : 
+            splitted = i.imgname.split('_')
+            category = splitted[0]
+            name = splitted[1]
+            cat_dict[category] = 0
+            num_dict[i.id] = 0
+            pref_dict[category + '_' + name] = 0
+        cat_json = json.dumps(cat_dict,ensure_ascii=False)
+        num_json = json.dumps(num_dict,ensure_ascii=False)
+        pref_json = json.dumps(pref_dict,ensure_ascii=False)
+        user_db = db.session.query(User).filter(User.username==current_username).first()
+        user_db.food_json = cat_json
+        user_db.filter_food_json = num_json
+        user_db.preference_json = pref_json
+        db.session.commit()
+
+    # 확인용
+    print(db.session.query(User).filter(User.username==current_username).first().food_json)
+    print(db.session.query(User).filter(User.username==current_username).first().filter_food_json)
+    print(db.session.query(User).filter(User.username==current_username).first().preference_json)
+
+    cat_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().filter_food_json)
+    unique_foods = set()
+    for i in foods : 
+        splitted = i.imgname.split('_')
+        category = splitted[0]
+        name = re.sub('[0-9]+','',splitted[1])
+        if cat_dict[str(i.id)]==0 : 
+            unique_foods.add(category+'_'+name)
+    unique_foods = sorted(list(unique_foods))
+
+    return render_template('filter.html',foods=unique_foods,cat_dict=cat_dict)
+
+# 필터링 후 이미지 제거 함수
+@app.route('/filter/delete', methods=['POST', 'GET'])
+@login_required
+def filter_delete():
+
+    # '카테고리_음식명' 형태로 되어 있음
+    # '_' 로 split 해주기
+    image_cat_name = request.form['search']
+    
+    # 만약 아무것도 입력하지 않으면 새로고침
+    if not image_cat_name : 
+        return redirect(url_for('filter'))
+    
+    splitted = image_cat_name.split('_')
+    category = splitted[0]
+    name = splitted[1]
+
+    search = category + '_' + name
+    
+    # filter 메쏘드로 해당 데이터 DB에서 삭제해주기
+    current_username = current_user.username
+    cat_dict = json.loads(db.session.query(User).filter(User.username==current_username).first().filter_food_json)
+
+    select_image = db.session.query(Image).filter((Image.imgname.contains(search))).all()
+    for i in select_image :
+        cat_dict[str(i.id)] = 1
+    
+    print(cat_dict)
+
+    cat_json = json.dumps(cat_dict,ensure_ascii=False)
+    user_db = db.session.query(User).filter(User.username==current_username).first()
+    user_db.filter_food_json = cat_json
+    db.session.commit()
+
+    return redirect(url_for('filter'))
 
 if __name__ == '__main__':
 
