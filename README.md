@@ -9,7 +9,7 @@ app
 │ └── forms.py
 │ └── models.py
 │ └── routes
-│           └── routes.py
+│           └── routes.py - 필터링 관련 
 │ └── templates
 │           └── email
 │                 └── reset_password.html
@@ -21,12 +21,13 @@ app
 │           └── edit_profile.html
 │           └── index.html
 │           └── login.html
-│           └── random_show.html
+│           └── random_show.html - 랜덤 이미지 생성 후 유저별 DB 업데이트
 │           └── register.html
 │           └── reset_password.html
 │           └── reset_password_request.html
 │           └── upload.html
 │           └── user.html
+│           └── filter.html - 필터링 관련 html (0 : 아직 안 봄 / 1 : 필터링 적용)
 │ └── init.py
 ```
 
@@ -66,6 +67,7 @@ app
 |2021-07-21|선호, 비선호 DB 구현||
 |2021-07-27|선호, 비선호 DB 하나의 DB로 통합 <br/> multiple upload 구현 (기현님 코드 참고) 후 모든 이미지 데이터 DB 저장 <br/> 이미지 데이터에서 랜덤 출력 구현 ==> 버튼 클릭시 선호/비선호 DB 저장|Like : 1 <br/> Dislike : 0|
 |2021-07-30|이미지 데이터 랜덤 출력 후 다시 뜨지 않게끔 수정 <br/> 필터링용 네비게이션 바 구현||
+|2021-08-03|유저별 DB 구현 (Json 형태) |0 : 아직 안봄 / 1 : 비선호 / 2 : 중간 / 3 : 선호 |
 ## 김기현
 |날짜|한 일|비고|
 |--|--|--|
