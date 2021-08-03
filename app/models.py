@@ -31,7 +31,9 @@ class User(UserMixin, db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
-    
+    food_json = db.Column(db.Text(),default='')
+    filter_food_json = db.Column(db.Text(),default='')
+    preference_json = db.Column(db.Text(),default='')
 
     followed = db.relationship(
         'User', secondary=followers,
@@ -112,6 +114,7 @@ class Image(db.Model):
     imgdata = db.Column(db.LargeBinary, nullable=False) #Actual img data
     rendered_data = db.Column(db.Text, nullable=False) # Data to render the pic in browser 
     pic_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
 
     def __repr__(self):
             return f"<Image {self.id}>"
